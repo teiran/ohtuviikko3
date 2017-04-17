@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         // vaihda oma opiskelijanumerosi seuraavaan, ÄLÄ kuitenkaan laita githubiin omaa opiskelijanumeroasi
-        String studentNr = "012345678";
+        String studentNr = "";
         if ( args.length>0) {
             studentNr = args[0];
         }
@@ -16,12 +16,12 @@ public class Main {
         String url = "http://ohtustats2017.herokuapp.com/students/"+studentNr+"/submissions";
 
         String bodyText = Request.Get(url).execute().returnContent().asString();
-        System.out.println(bodyText);
+        
         
         String url2 = "https://ohtustats2017.herokuapp.com/courses/1.json";
         
         String bodyText2 = Request.Get(url2).execute().returnContent().asString();
-        System.out.println(bodyText2);
+        
 
         Gson mapper = new Gson();
         Submission[] subs = mapper.fromJson(bodyText, Submission[].class);
