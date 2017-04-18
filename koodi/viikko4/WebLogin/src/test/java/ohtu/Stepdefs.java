@@ -29,6 +29,30 @@ public class Stepdefs {
         element.click();
     }
 
+    @Given("^user with username \"([^\"]*)\" with password \"([^\"]*)\" is successfully created$")
+    public void user_with_username_with_password_is_successfully_created(String arg1, String arg2) throws Throwable {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+        newuser(arg1, arg2, arg2);
+        pageHasContent("Welcome to Ohtu Application!");
+        element = driver.findElement(By.linkText("continue to application mainpage"));
+        element.click();
+        pageHasContent("Ohtu Application main page");
+        element = driver.findElement(By.linkText("logout"));
+        element.click();
+    }
+
+    @Given("^user with username \"([^\"]*)\" and password \"([^\"]*)\" is unsuccessfully created$")
+    public void user_with_username_and_password_is_unsuccessfully_created(String arg1, String arg2) throws Throwable {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+        newuser(arg1, arg2, arg2);
+        element = driver.findElement(By.linkText("back to home"));
+        element.click();
+    }
+
     @When("^username \"([^\"]*)\" and password \"([^\"]*)\" are given$")
     public void username_and_password_are_given(String username, String password) throws Throwable {
         WebElement element = driver.findElement(By.name("username"));
@@ -75,12 +99,11 @@ public class Stepdefs {
         pageHasContent("Create username and give password");
         pageHasContent(arg1);
     }
-    
+
     @When("^correct new username \"([^\"]*)\" and password \"([^\"]*)\" and password Confirmation \"([^\"]*)\" are given$")
     public void correct_new_username_and_password_and_password_Confirmation_are_given(String arg1, String arg2, String arg3) throws Throwable {
         newuser(arg1, arg2, arg3);
     }
-
 
     @After
     public void tearDown() {
